@@ -1,3 +1,5 @@
+// TODO: Basic implementation done, need some work on routes and details.
+
 // In package.json, the "type" is "module". This means I have to import using the word "import" as oposed to "require";
 import dotenv from "dotenv/config";
 import express from "express";
@@ -36,6 +38,19 @@ app.use("/auth", rateLimit({
 }));
 
 app.use(authRouter);
+
+// To check Authentication
+function isAuthenticated (req, res, next){
+  if (req.session.userId && req.session.username){
+    next();
+  } else {
+    // TODO: do something here I guess.
+  }
+};
+
+app.get("/", isAuthenticated, (req, res) => {
+  // TODO: Do something here.
+});
 
 app.get('/run', (req, res) => {
         const pythonProcess = spawn('python', ['../machine_learning/setup.py']);

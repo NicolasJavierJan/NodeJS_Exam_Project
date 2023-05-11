@@ -1,3 +1,5 @@
+//TODO: The baseline for authentication is done. I need to connect it to the actual page so Auth works and shows stuff based on that.
+
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import db from "../../databases/sqliteConnection.js";
@@ -26,13 +28,21 @@ router.post("/auth/log-in", async (req, res) => {
         // The username exists. Does the password match?
         const passwordCompare = await bcrypt.compare(req.body.password, user.password);
         if (passwordCompare){
-            // Do Something
+            req.session.userId = user.id;
+            req.session.username = user.username;
+            req.session.userType = user.user_type;
+            res.status(200).send();
         } else {
             res.status(401).send();
         }
     } else {
-        res.send("who are you again?");
+        res.status(401).send();
     }
+})
+
+router.get("/auth/log-out", (req, res) => {
+    req.session.destroy();
+    res.status(200).send();
 })
 
 export default router;
