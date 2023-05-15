@@ -15,12 +15,21 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-family: 'Courier';
+  font-size: 28px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 600;
+  color: grey;
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: white;
+  text-shadow:
+               0 0 .2rem #fff,
+               0 0 10px #fff,
+               0 0 21px #fff; 
 }
 
 body {

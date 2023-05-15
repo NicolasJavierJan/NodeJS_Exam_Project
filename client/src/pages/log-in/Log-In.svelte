@@ -1,16 +1,42 @@
 <script>
+    let username;
+    let password;
+    let message = "";
 
+    function handleLogin(){
+        fetch('http://localhost:8080/auth/log-in', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                'username': username,
+                'password': password
+            })
+        })
+        .then(response => {
+            if (response.status === 200) {
+                //TODO: Save user and go to Main Page
+            } else if (response.status === 401){
+                message = "Wrong Username or Password";
+            }
+        })
+    }
 </script>
 
 <div class="neon-sign forms login">
     <h1 class="titles">LOG IN</h1>
-    <form>
+    <form on:submit|preventDefault={handleLogin}>
         <label for="username"  style="margin-top: 70px;">Username</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username" required bind:value={username}>
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" required bind:value={password}>
         <br>
         <br>
         <button type="submit">Log In</button>
+        <br>
+        <br>
+        <p>{message}</p>
     </form>
 </div>
