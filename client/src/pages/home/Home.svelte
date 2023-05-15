@@ -14,7 +14,7 @@
         padding: 18px;
         text-align: center;
         animation: flicker 7.5s infinite alternate;
-        }
+    }
 
     @keyframes flicker {
     0%, 18%, 22%, 25%, 53%, 57%, 100% {

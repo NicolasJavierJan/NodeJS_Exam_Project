@@ -3,6 +3,12 @@
     let password;
     let message = "";
 
+    import { useNavigate, useLocation } from "svelte-navigator";
+	import { user } from "../../stores/users.js";
+
+    const navigate = useNavigate();
+	const location = useLocation();
+
     function handleLogin(){
         fetch('http://localhost:8080/auth/log-in', {
             method: 'POST',
@@ -17,7 +23,9 @@
         })
         .then(response => {
             if (response.status === 200) {
-                //TODO: Save user and go to Main Page
+                user.set({ username, password });
+                const from = ($location.state && $location.state.from) || "/main";
+                navigate(from, { replace: true });
             } else if (response.status === 401){
                 message = "Wrong Username or Password";
             }
