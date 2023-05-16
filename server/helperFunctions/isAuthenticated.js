@@ -4,6 +4,7 @@ export function isAuthenticated (req, res, next){
       next();
     } else {
       // TODO: Do something, return an error code or an error page.
+      // TODO: It would be nice to have an error page here.
       res.send("No");
     }
   };

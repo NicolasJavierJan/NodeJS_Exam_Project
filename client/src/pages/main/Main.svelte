@@ -1,12 +1,20 @@
 <script>
-    let songs = ["Song one", "Song two", "Song 3", "Song 4", "Song 5"];
+    import toastr from 'toastr';
+    import 'toastr/build/toastr.min.css';
+
+    let songs = [];
     let selectedSongs = [];
     let message;
     let buttonDisable = false;
+    let saveSongsButton = true;
 
     function handleSongFetch(){
         songs = [];
         buttonDisable = true;
+
+        randomToast();
+        const interval = setInterval(randomToast, 4500);
+
         fetch('http://localhost:8080/run', {
             method: 'GET',
             credentials: 'include',
@@ -15,6 +23,7 @@
             }
         })
         .then(response => {
+            clearInterval(interval);
             if (response.status === 200){
                 return response.json();
             } else if (response.status === 500){
@@ -39,7 +48,11 @@
         } else {
             selectedSongs = selectedSongs.filter((selectedSong) => selectedSong !== song);
         }
-        console.log(selectedSongs);
+        if (selectedSongs.length > 0){
+            saveSongsButton = false;
+        } else {
+            saveSongsButton = true;
+        }
     }
 
     function handleSongSave(){
@@ -53,7 +66,35 @@
             body: JSON.stringify(data)
         });
     }
-    </script>
+
+    function randomToast() {
+        const titles = ["Fetching Songs", "Please be patient...", "Don't go anywhere!", "We will be ready shortly!", "Please stay here", "Don't leave me now", "It will just take a little longer", "Please keep waiting a little longer"];
+        const bodies = ["The model is working", "The monkeys are writing", "We are plugging in the server", "We are extinguishing some fires in the server room", "An employee brought a cobra today and it escaped", "We are asking ChatGPT for some song titles", "Machine learning is hard.", "We are having some troubles making the model cooperate with us", "Our robot overlords are displeased today"];
+
+        const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+        const randomBody = bodies[Math.floor(Math.random() * bodies.length)];
+
+        toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-full-width",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
+
+        toastr["info"](randomBody, randomTitle);
+    }
+</script>
 
 <div class="neon-sign main song-table">
     <h1 class='titles'>Heavy Metal Song Title Creator</h1>
@@ -69,9 +110,9 @@
     {/if}
     <br>
     <br>
-
     <div class='songs-table'>
         {#if songs.length > 0}
+            <br>
             <table>
                 {#each songs as song, index}
                     {#if index % 2 == 0 && songs[index + 1]}
@@ -103,9 +144,8 @@
             </table>
         {/if}
     </div>
-    <br>
     <h3>You can save the ones you like the most! Just check the songs you want to save, and press the button to save them!</h3>
-    <button on:click={handleSongSave}>Save Songs!</button>
+    <button on:click={handleSongSave} disabled={saveSongsButton}>Save Songs!</button>
     <br>
     <br>
 </div>

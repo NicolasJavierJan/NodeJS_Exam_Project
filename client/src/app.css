@@ -69,6 +69,10 @@ button:focus-visible {
   outline: none;
   box-shadow: 0 0 30px var(--neon-color);
 }
+button:disabled {
+  box-shadow: none;
+  cursor: not-allowed;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

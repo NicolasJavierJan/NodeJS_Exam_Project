@@ -42,19 +42,14 @@ app.use("/auth", rateLimit({
 app.use(authRouter);
 app.use(userSongs);
 
-//TODO: add "isAuthenticated";
-app.get('/run', (req, res) => {
-        //TODO: Delete this console.log
-        console.log("i started");
+app.get('/run', isAuthenticated, (req, res) => {
         const pythonProcess = spawn('python', ['../machine_learning/setup.py']);
 
-        let generatedText = '';
         let errorMessage = '';
         let songs = [];
 
         pythonProcess.stdout.on('data', (data) => {
             const lines = data.toString().replace(/\r/g, '').trim().split('\n');
-            console.log(lines);
             songs.push(...lines);
         });
       
@@ -64,7 +59,6 @@ app.get('/run', (req, res) => {
       
         pythonProcess.on('close', (code) => {
           if (code === 0) {
-            console.log("Finished, sending data:")
             // Send the generated text as the response
             res.status(200).send(songs);
           } else {
