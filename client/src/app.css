@@ -95,6 +95,10 @@ button:focus-visible {
   --neon-color: #0077ff;
 }
 
+.main {
+  --neon-color: #009dff;
+}
+
 @keyframes flicker {
   0%, 18%, 22%, 25%, 53%, 57%, 100% {
     text-shadow: 
@@ -138,6 +142,15 @@ button:focus-visible {
   position: fixed;
   padding: 18px;
   text-align: center;
+}
+
+.song-table {
+  margin: 3%;
+  text-align: center;
+}
+
+.song-table input:focus {
+  box-shadow: none;
 }
 
 label {

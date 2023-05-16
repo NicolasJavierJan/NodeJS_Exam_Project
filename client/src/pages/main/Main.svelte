@@ -1,11 +1,12 @@
 <script>
-  import { get_root_for_style, set_data_contenteditable_dev } from "svelte/internal";
-
-    let songs = [];
+    let songs = ["Song one", "Song two", "Song 3", "Song 4", "Song 5"];
     let selectedSongs = [];
-    let message = '';
+    let message;
+    let buttonDisable = false;
 
     function handleSongFetch(){
+        songs = [];
+        buttonDisable = true;
         fetch('http://localhost:8080/run', {
             method: 'GET',
             credentials: 'include',
@@ -18,10 +19,12 @@
                 return response.json();
             } else if (response.status === 500){
                 message = "There has been an error. Please try again."
+                buttonDisable = false;
             }
         })
         .then(result => {
             songs = result;
+            buttonDisable = false;
         })
     }
 
@@ -40,42 +43,76 @@
     }
     </script>
 
-<h1>Heavy Metal Song Title Creator</h1>
+<div class="neon-sign main song-table">
+    <h1 class='titles'>Heavy Metal Song Title Creator</h1>
+    <h3>With a press of the button, you can get some Machine Learning generated song titles.</h3>
+    <h3>The model was trained with over 22 thousand heavy metal song titles. </h3>
+    <h3>Give it a try!</h3>
+    <button on:click={handleSongFetch} disabled={buttonDisable}>Get Songs!</button>
+    {#if message}
+        <br>
+        <br>
+        {message}
+        <br>
+    {/if}
+    <br>
+    <br>
 
-<button on:click={handleSongFetch}>Get Songs!</button>
+    <div class='songs-table'>
+        {#if songs.length > 0}
+            <table>
+                {#each songs as song, index}
+                    {#if index % 2 == 0 && songs[index + 1]}
+                        <tr>
+                            <td>
+                                {song}
+                                </td>
+                                <td>
+                                <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
+                            </td>
+                            <td>
+                                {songs[index + 1]}
+                            </td>
+                            <td>
+                                <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, songs[index + 1])}>
+                            </td>
+                        </tr>
+                    {:else if index % 2 == 0}
+                        <tr>
+                            <td>
+                                {song}
+                            </td>
+                            <td>
+                                <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
+                            </td>
+                        </tr>
+                    {/if}
+                {/each}
+            </table>
+        {/if}
+    </div>
+    <br>
+    <h3>You can save the ones you like the most! Just check the songs you want to save, and press the button to save them!</h3>
+    <button>Save Songs!</button>
+    <br>
+    <br>
+</div>
 
-{message}
-
-{#if songs.length > 0}
-    <table class="songs-table">
-        {#each songs as song, index}
-            {#if index % 2 == 0 && songs[index + 1]}
-                <tr>
-                    <td>
-                        <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
-                        {song}
-                    </td>
-                    <td>
-                        <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, songs[index + 1])}>
-                        {songs[index + 1]}
-                    </td>
-                </tr>
-            {:else if index % 2 == 0}
-                <tr>
-                    <td>
-                        <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
-                        {song}
-                    </td>
-                </tr>
-            {/if}
-        {/each}
-    </table>
-{/if}
 
 <style>
 
     .checkmark {
         height: 20px;
+    }
+
+    .songs-table {
+        display: flex;
+        justify-content: center;
+    }
+
+    table {
+        table-layout: fixed;
+        width: 80%;
     }
 
 </style>
