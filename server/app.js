@@ -44,22 +44,25 @@ function isAuthenticated (req, res, next){
   if (req.session.userId && req.session.username){
     next();
   } else {
-    // TODO: do something here I guess.
+    // TODO: Do something, return an error code or an error page.
+    res.send("No");
   }
 };
 
-app.get("/", isAuthenticated, (req, res) => {
-  // TODO: Do something here.
-});
-
+//TODO: add "isAuthenticated";
 app.get('/run', (req, res) => {
+        //TODO: Delete this console.log
+        console.log("i started");
         const pythonProcess = spawn('python', ['../machine_learning/setup.py']);
 
         let generatedText = '';
         let errorMessage = '';
+        let songs = [];
 
         pythonProcess.stdout.on('data', (data) => {
-            generatedText += data.toString();
+            const lines = data.toString().replace(/\r/g, '').trim().split('\n');
+            console.log(lines);
+            songs.push(...lines);
         });
       
         pythonProcess.stderr.on('data', (data) => {
@@ -68,8 +71,9 @@ app.get('/run', (req, res) => {
       
         pythonProcess.on('close', (code) => {
           if (code === 0) {
+            console.log("Finished, sending data:")
             // Send the generated text as the response
-            res.send(generatedText);
+            res.status(200).send(songs);
           } else {
             // Send the error message as the response
             res.status(500).send(errorMessage);

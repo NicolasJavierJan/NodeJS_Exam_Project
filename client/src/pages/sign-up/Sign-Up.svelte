@@ -19,8 +19,7 @@
         })
         .then(response => {
             if (response.status === 200){
-                //TODO: Go to Login Page.
-                console.log("yeeha");
+                window.location.href = "/log-in";
             } else if (response.status === 400){
                 message = "User already exists";
             }

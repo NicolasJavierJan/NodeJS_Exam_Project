@@ -10,6 +10,7 @@ from tensorflow.keras.layers import Dense, LSTM, Embedding
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
 import random
+import sys
 
 song_titles = ''
 
@@ -76,5 +77,5 @@ for item in formatted_songs:
   if not (item in song_titles_clean):
     formatted_songs_clean.append(item)
 
-for i, line in enumerate(formatted_songs_clean):
-    print(f"{i+1}. {line}".encode('utf-8').decode('utf-8')) # print each line with a prefix number
+for title in formatted_songs_clean:
+  print(title, file=sys.stdout, flush=True)

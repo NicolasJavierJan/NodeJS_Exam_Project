@@ -31,7 +31,12 @@ import Home from "./pages/home/Home.svelte";
   <Route path="/sign-up">
     <SignUp />
   </Route>
+  <!--
   <PrivateRoute path="/main" let:location>
     <Main />
   </PrivateRoute>
+  -->
+  <Route path="/main">
+    <Main />
+  </Route>
 </Router>
