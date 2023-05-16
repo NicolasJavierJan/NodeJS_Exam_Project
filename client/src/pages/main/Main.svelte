@@ -41,6 +41,18 @@
         }
         console.log(selectedSongs);
     }
+
+    function handleSongSave(){
+        const data = { songs: selectedSongs };
+        fetch('http://localhost:8080/songs/', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+    }
     </script>
 
 <div class="neon-sign main song-table">
@@ -93,11 +105,10 @@
     </div>
     <br>
     <h3>You can save the ones you like the most! Just check the songs you want to save, and press the button to save them!</h3>
-    <button>Save Songs!</button>
+    <button on:click={handleSongSave}>Save Songs!</button>
     <br>
     <br>
 </div>
-
 
 <style>
 

@@ -9,11 +9,13 @@ import session from "express-session";
 import rateLimit from "express-rate-limit";
 
 import { spawn } from "child_process";
+import { isAuthenticated } from "./helperFunctions/isAuthenticated.js";
 
 const app = express();
 
 // Routes:
 import authRouter from "./routers/auth/auth.js";
+import userSongs from "./routers/songs/songs.js";
 
 // Middleware functions:
 app.use(express.json());
@@ -38,16 +40,7 @@ app.use("/auth", rateLimit({
 }));
 
 app.use(authRouter);
-
-// To check Authentication
-function isAuthenticated (req, res, next){
-  if (req.session.userId && req.session.username){
-    next();
-  } else {
-    // TODO: Do something, return an error code or an error page.
-    res.send("No");
-  }
-};
+app.use(userSongs);
 
 //TODO: add "isAuthenticated";
 app.get('/run', (req, res) => {
