@@ -3,6 +3,7 @@
 
     let username = $user.username;
     let songs = [];
+    let selectedSongs = [];
 
     fetch("http://localhost:8080/songs", {
         method: 'GET',
@@ -16,11 +17,27 @@
         songs = result[0].songs;
     })
 
-    
+    function handleChecked(event, song){
+        if (event.target.checked){
+            if (!selectedSongs.includes(song)) {
+                selectedSongs.push(song);
+            }
+        } else {
+            selectedSongs = selectedSongs.filter((selectedSong) => selectedSong !== song);
+        }
+        if (selectedSongs.length > 0){
+            
+        } else {
+            
+        }
+        console.log(selectedSongs); 
+    }
 </script>
 
 <h1>Hello, {username}!</h1>
 <h3>This are your favourited songs!</h3>
+<p> You can add your song titles to the Gallery by selecting some songs and pressing the "Show the World" button!</p>
+<p>Give it a try!</p>
 
 <div class='songs-table'>
     {#if songs.length > 0}
@@ -33,13 +50,13 @@
                             {song}
                         </td>
                         <td>
-                            <input class="checkmark" type="checkbox">
+                            <input class="checkmark" type="checkbox" on:change={(event) => handleChecked(event, song)}>
                         </td>
                         <td>
                             {songs[index + 1]}
                         </td>
                         <td>
-                            <input class="checkmark" type="checkbox">
+                            <input class="checkmark" type="checkbox" on:change={(event) => handleChecked(event, songs[index + 1])}>
                         </td>
                     </tr>
                 {:else if index % 2 == 0}
@@ -48,7 +65,7 @@
                             {song}
                         </td>
                         <td>
-                            <input class='checkmark' type="checkbox">
+                            <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
                         </td>
                     </tr>
                 {/if}
@@ -56,3 +73,6 @@
         </table>
     {/if}
 </div>
+
+<br>
+<button>Show the World!</button>

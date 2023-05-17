@@ -5,10 +5,12 @@
   import Main from "./pages/main/Main.svelte";
   import SignUp from "./pages/sign-up/Sign-Up.svelte";
   import Profile from "./pages/profile/Profile.svelte";
+  import Gallery from "./pages/gallery/Gallery.svelte";
 
   import { Router, Link, Route } from "svelte-navigator";
 
   import { user } from "./stores/users.js";
+  
 
   function handleLogOut(){
     $user = null;
@@ -26,6 +28,7 @@
   
   <nav>
     <Link to="/">HOME</Link>
+    <Link to="/gallery">GALLERY</Link>
     <Link to="/sign-up">SIGN UP</Link>
     <Link to="/log-in">LOG IN</Link>
     {#if $user}
@@ -52,4 +55,7 @@
   <PrivateRoute path="/profile" let:location>
     <Profile />
   </PrivateRoute>
+  <Route path="/gallery">
+    <Gallery />
+  </Route>
 </Router>
