@@ -8,6 +8,17 @@
   import { Router, Link, Route } from "svelte-navigator";
 
   import { user } from "./stores/users.js";
+
+  function handleLogOut(){
+    $user = null;
+    fetch('http://localhost:8080/auth/log-out', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+  }
 </script>
 
 <Router>
@@ -19,6 +30,7 @@
     {#if $user}
     <!-- TODO ADD PROFILE PAGE ADD PROFILE PAGE TODO ADD PROFILE PAGE TODO TODO TODO ADD PROFILE PAGE & LOGOUT-->
     <Link to="/main">SONG CREATOR</Link>
+    <Link to="#" on:click={handleLogOut} style="float: right;">LOGOUT</Link>
     {/if}
   </nav>
   
