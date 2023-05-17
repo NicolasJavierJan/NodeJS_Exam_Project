@@ -180,3 +180,17 @@ input:focus {
   outline: none;
   box-shadow: 0 0 15px var(--neon-color);
 }
+
+.checkmark {
+  height: 20px;
+}
+
+.songs-table {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  table-layout: fixed;
+  width: 80%;
+}

@@ -71,7 +71,7 @@
         "debug": false,
         "newestOnTop": false,
         "progressBar": false,
-        "positionClass": "toast-top-right",
+        "positionClass": "toast-bottom-right",
         "preventDuplicates": false,
         "onclick": null,
         "showDuration": "300",
@@ -88,6 +88,7 @@
 
         songs = [];
         selectedSongs = [];
+        saveSongsButton = true;
     }
 
     function randomToast() {
@@ -174,19 +175,5 @@
 </div>
 
 <style>
-
-    .checkmark {
-        height: 20px;
-    }
-
-    .songs-table {
-        display: flex;
-        justify-content: center;
-    }
-
-    table {
-        table-layout: fixed;
-        width: 80%;
-    }
 
 </style>
