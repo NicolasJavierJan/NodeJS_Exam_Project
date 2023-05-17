@@ -23,7 +23,7 @@
         })
         .then(response => {
             if (response.status === 200) {
-                user.set({ username, password });
+                user.set({ username });
                 const from = ($location.state && $location.state.from) || "/main";
                 navigate(from, { replace: true });
             } else if (response.status === 401){

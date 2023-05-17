@@ -7,7 +7,7 @@ const router = Router();
 
 //TODO: Check this. It works, but it feels somewhat wobbly.
 //TODO: Starting with Profile Page.
-router.post("/songs/", isAuthenticated, async (req, res) => {
+router.post("/songs", isAuthenticated, async (req, res) => {
 
   const username = req.session.username.toString();
   // Checks if there is a collection with that name:
@@ -25,6 +25,12 @@ router.post("/songs/", isAuthenticated, async (req, res) => {
     await collection.insertOne({ songs: req.body.songs } );
     console.log(await collection.find().toArray()); 
   }
+})
+
+router.get("/songs", isAuthenticated, async (req, res) => {
+  const collection = mongoDB.collection(req.session.username.toString());
+  const favouritedSongs = await collection.find().toArray();
+  res.status(200).send(favouritedSongs);
 })
 
 export default router;

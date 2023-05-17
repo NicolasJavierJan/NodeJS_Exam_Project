@@ -4,6 +4,7 @@
   import LogIn from "./pages/log-in/Log-In.svelte";
   import Main from "./pages/main/Main.svelte";
   import SignUp from "./pages/sign-up/Sign-Up.svelte";
+  import Profile from "./pages/profile/Profile.svelte";
 
   import { Router, Link, Route } from "svelte-navigator";
 
@@ -31,6 +32,7 @@
     <!-- TODO ADD PROFILE PAGE ADD PROFILE PAGE TODO ADD PROFILE PAGE TODO TODO TODO ADD PROFILE PAGE & LOGOUT-->
     <Link to="/main">SONG CREATOR</Link>
     <Link to="#" on:click={handleLogOut} style="float: right;">LOGOUT</Link>
+    <Link to="/profile" style="float: right;">PROFILE</Link>
     {/if}
   </nav>
   
@@ -46,5 +48,8 @@
   </Route>
   <PrivateRoute path="/main" let:location>
     <Main />
+  </PrivateRoute>
+  <PrivateRoute path="/profile" let:location>
+    <Profile />
   </PrivateRoute>
 </Router>

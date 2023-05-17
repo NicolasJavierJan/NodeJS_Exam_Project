@@ -16,6 +16,7 @@ const app = express();
 // Routes:
 import authRouter from "./routers/auth/auth.js";
 import userSongs from "./routers/songs/songs.js";
+import profile from "./routers/profile/profile.js";
 
 // Middleware functions:
 app.use(express.json());
@@ -41,6 +42,7 @@ app.use("/auth", rateLimit({
 
 app.use(authRouter);
 app.use(userSongs);
+app.use(profile);
 
 app.get('/run', isAuthenticated, (req, res) => {
         const pythonProcess = spawn('python', ['../machine_learning/setup.py']);

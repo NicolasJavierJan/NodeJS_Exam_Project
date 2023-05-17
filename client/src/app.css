@@ -73,6 +73,9 @@ button:disabled {
   box-shadow: none;
   cursor: not-allowed;
 }
+button:active {
+  background-color: #303030;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
