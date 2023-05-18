@@ -17,13 +17,11 @@ router.post("/songs", isAuthenticated, async (req, res) => {
   if (dbExists){
     const collection = mongoDB.collection(username);
     await collection.updateOne({}, { $push: { songs: { $each: req.body.songs } } });
-    console.log(await collection.find().toArray());
     // If not, creates the collection and saves the songs.
   } else {
     mongoDB.createCollection(username);
     const collection = mongoDB.collection(username);
-    await collection.insertOne({ songs: req.body.songs } );
-    console.log(await collection.find().toArray()); 
+    await collection.insertOne({ songs: req.body.songs } ); 
   }
 })
 
@@ -31,6 +29,22 @@ router.get("/songs", isAuthenticated, async (req, res) => {
   const collection = mongoDB.collection(req.session.username.toString());
   const favouritedSongs = await collection.find().toArray();
   res.status(200).send(favouritedSongs);
+})
+
+router.post("/songs/favourites", isAuthenticated, async (req, res) => {
+  const dbExists = (await mongoDB.listCollections({ name: "favourites"}).toArray()).length;
+  console.log(dbExists);
+  
+  if (dbExists){
+    const collection = mongoDB.collection("favourites");
+    await collection.updateOne({}, { $push: { songs: { $each: req.body.songs } } });
+    console.log(await collection.find().toArray());
+  } else {
+    mongoDB.createCollection("favourites");
+    const collection = mongoDB.collection("favourites");
+    await collection.insertOne({ songs: req.body.songs });
+  }
+  
 })
 
 export default router;

@@ -4,6 +4,7 @@
     let username = $user.username;
     let songs = [];
     let selectedSongs = [];
+    let saveSongsButton = true;
 
     fetch("http://localhost:8080/songs", {
         method: 'GET',
@@ -26,12 +27,25 @@
             selectedSongs = selectedSongs.filter((selectedSong) => selectedSong !== song);
         }
         if (selectedSongs.length > 0){
-            
+            saveSongsButton = false;
         } else {
-            
+            saveSongsButton = true;
         }
         console.log(selectedSongs); 
     }
+
+    function handleSongSave(){
+        const data = {songs: selectedSongs }
+        fetch("http://localhost:8080/songs/favourites", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
 </script>
 
 <h1>Hello, {username}!</h1>
@@ -75,4 +89,4 @@
 </div>
 
 <br>
-<button>Show the World!</button>
+<button on:click={handleSongSave}   disabled={saveSongsButton}>Show the World!</button>

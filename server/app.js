@@ -7,11 +7,21 @@ import helmet from "helmet";
 import cors from "cors";
 import session from "express-session";
 import rateLimit from "express-rate-limit";
+import http from 'http';
+import mongoDB from "./databases/mongoConnection.js";
 
 import { spawn } from "child_process";
 import { isAuthenticated } from "./helperFunctions/isAuthenticated.js";
+import { Server } from "socket.io";
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["*"]
+  }
+});
 
 // Routes:
 import authRouter from "./routers/auth/auth.js";
@@ -70,9 +80,18 @@ app.get('/run', isAuthenticated, (req, res) => {
         });
 })
 
+io.on("connection", (socket) => {  
+  socket.on("give me the songs", async () => {
+    const collection = mongoDB.collection("favourites");
+    const favouriteSongs = await collection.find().toArray();
+    io.emit("songs", favouriteSongs);
+  })
+})
+
+
 // Using the port from the environmental variables OR port 8080.
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 })
