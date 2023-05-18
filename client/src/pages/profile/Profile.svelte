@@ -36,7 +36,7 @@
         console.log(selectedSongs); 
     }
 
-    function handleSongSave(){
+    async function handleSongSave(){
         const data = {songs: selectedSongs }
         fetch("http://localhost:8080/songs/favourites", {
             method: 'POST',
@@ -69,6 +69,13 @@
                 toastr["success"]("The songs have been added to the Gallery!", "Success~!")
             }
         })   
+
+        selectedSongs.forEach(selectedSong => {
+            const songIndex = songs.findIndex(song => song.title === selectedSong.title);
+            if (songIndex !== -1) {
+                songs[songIndex].favorited = true;
+            }
+        })
     }
 
 </script>
@@ -98,7 +105,6 @@
                                 {songs[index + 1].title}
                             </td>
                             <td>
-                                <td>
                                 {#if !songs[index + 1].favorited}
                                 <input class="checkmark" type="checkbox" on:change={(event) => handleChecked(event, songs[index + 1])}>
                                 {/if}
@@ -110,7 +116,6 @@
                                 {song.title}
                             </td>
                             <td>
-                                <td>
                                 {#if !song.favorited}
                                 <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
                                 {/if}

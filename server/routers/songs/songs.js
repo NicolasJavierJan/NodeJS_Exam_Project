@@ -40,8 +40,6 @@ router.get("/songs", isAuthenticated, async (req, res) => {
   res.status(200).send(favouritedSongs);
 })
 
-// I have to make some stuff:
-// And then, edit the frontend so the favorited songs are not available for clicking (again)
 router.post("/songs/favourites", isAuthenticated, async (req, res) => {
   const dbExists = (await mongoDB.listCollections({ name: "favourites"}).toArray()).length;
   const userSongsCollection = mongoDB.collection(req.session.username.toString());
@@ -59,7 +57,7 @@ router.post("/songs/favourites", isAuthenticated, async (req, res) => {
   if (dbExists){
     const collection = mongoDB.collection("favourites");
     const songsToAdd = req.body.songs.map(song => (song.title))
-    await collection.updateOne({}, { $push: { songs: { $each: songsToAdd } } });
+    await collection.updateOne({}, { $push: { songs: { $each: songsToAdd, $position: 0 } } });
     console.log(await collection.find().toArray());
     res.status(200).send();
   } else {    

@@ -146,8 +146,8 @@
                         <tr>
                             <td>
                                 {song}
-                                </td>
-                                <td>
+                            </td>
+                            <td>
                                 <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
                             </td>
                             <td>
