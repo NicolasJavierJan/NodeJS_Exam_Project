@@ -27,13 +27,16 @@
             if (response.status === 200){
                 return response.json();
             } else if (response.status === 500){
-                message = "There has been an error. Please try again."
+                message = "There has been an error. Please try again.";
                 buttonDisable = false;
             }
         })
         .then(result => {
             songs = result;
             buttonDisable = false;
+            if (songs.length === 0){
+                message = "There has been an error. Please try again";
+            }
         })
     }
 

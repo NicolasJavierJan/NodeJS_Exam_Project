@@ -13,4 +13,6 @@
 
 </script>
 
-{songs}
+{#each songs as song}
+    {song.title}
+{/each}

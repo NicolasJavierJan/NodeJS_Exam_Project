@@ -32,7 +32,6 @@
     <Link to="/sign-up">SIGN UP</Link>
     <Link to="/log-in">LOG IN</Link>
     {#if $user}
-    <!-- TODO ADD PROFILE PAGE ADD PROFILE PAGE TODO ADD PROFILE PAGE TODO TODO TODO ADD PROFILE PAGE & LOGOUT-->
     <Link to="/main">SONG CREATOR</Link>
     <Link to="#" on:click={handleLogOut} style="float: right;">LOGOUT</Link>
     <Link to="/profile" style="float: right;">PROFILE</Link>

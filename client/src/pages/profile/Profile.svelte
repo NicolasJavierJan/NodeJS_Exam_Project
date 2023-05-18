@@ -1,4 +1,6 @@
 <script>
+    import toastr from 'toastr';
+    import 'toastr/build/toastr.min.css';
     import { user } from "../../stores/users.js";
 
     let username = $user.username;
@@ -44,49 +46,84 @@
             },
             body: JSON.stringify(data)
         })
+        .then(response => {
+            if (response.status === 200){
+                toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                }
+
+                toastr["success"]("The songs have been added to the Gallery!", "Success~!")
+            }
+        })   
     }
 
 </script>
 
-<h1>Hello, {username}!</h1>
-<h3>This are your favourited songs!</h3>
-<p> You can add your song titles to the Gallery by selecting some songs and pressing the "Show the World" button!</p>
-<p>Give it a try!</p>
+<div class='neon-sign profile song-table'>
+    <h1 class='titles'>Hello, {username}!</h1>
+    <h3>This are your favourited songs!</h3>
+    <h3> You can add your song titles to the Gallery by selecting some songs and pressing the "Show the World" button!</h3>
+    <h3>Give it a try!</h3>
 
-<div class='songs-table'>
-    {#if songs.length > 0}
-        <br>
-        <table>
-            {#each songs as song, index}
-                {#if index % 2 == 0 && songs[index + 1] }
-                    <tr>
-                        <td>
-                            {song}
-                        </td>
-                        <td>
-                            <input class="checkmark" type="checkbox" on:change={(event) => handleChecked(event, song)}>
-                        </td>
-                        <td>
-                            {songs[index + 1]}
-                        </td>
-                        <td>
-                            <input class="checkmark" type="checkbox" on:change={(event) => handleChecked(event, songs[index + 1])}>
-                        </td>
-                    </tr>
-                {:else if index % 2 == 0}
-                    <tr>
-                        <td>
-                            {song}
-                        </td>
-                        <td>
-                            <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
-                        </td>
-                    </tr>
-                {/if}
-            {/each}
-        </table>
-    {/if}
+    <div class='songs-table'>
+        {#if songs.length > 0}
+            <br>
+            <table>
+                {#each songs as song, index}
+                    {#if index % 2 == 0 && songs[index + 1] }
+                        <tr>
+                            <td>
+                                {song.title}
+                            </td>
+                            <td>
+                                {#if !song.favorited}
+                                <input class="checkmark" type="checkbox" on:change={(event) => handleChecked(event, song)}>
+                                {/if}
+                            </td>
+                            <td>
+                                {songs[index + 1].title}
+                            </td>
+                            <td>
+                                <td>
+                                {#if !songs[index + 1].favorited}
+                                <input class="checkmark" type="checkbox" on:change={(event) => handleChecked(event, songs[index + 1])}>
+                                {/if}
+                            </td>
+                        </tr>
+                    {:else if index % 2 == 0}
+                        <tr>
+                            <td>
+                                {song.title}
+                            </td>
+                            <td>
+                                <td>
+                                {#if !song.favorited}
+                                <input class='checkmark' type="checkbox" on:change={(event) => handleChecked(event, song)}>
+                                {/if}
+                            </td>
+                        </tr>
+                    {/if}
+                {/each}
+            </table>
+        {/if}
+    </div>
+
+    <br>
+    <button on:click={handleSongSave}   disabled={saveSongsButton}>Show the World!</button>
+    <br>
+    <br>
 </div>
-
-<br>
-<button on:click={handleSongSave}   disabled={saveSongsButton}>Show the World!</button>

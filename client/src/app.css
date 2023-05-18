@@ -106,6 +106,10 @@ button:active {
   --neon-color: #009dff;
 }
 
+.profile {
+  --neon-color: #eb711a;
+}
+
 @keyframes flicker {
   0%, 18%, 22%, 25%, 53%, 57%, 100% {
     text-shadow: 
