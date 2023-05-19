@@ -41,13 +41,12 @@ router.get("/songs", isAuthenticated, async (req, res) => {
 })
 
 router.post("/songs/favourites", isAuthenticated, async (req, res) => {
+  // Get the user, songs, and get the titles of the songs to update: 
   const dbExists = (await mongoDB.listCollections({ name: "favourites"}).toArray()).length;
   const userSongsCollection = mongoDB.collection(req.session.username.toString());
   const songTitles = req.body.songs;
   const songsToUpdate = songTitles.map(song => song.title);
   
-  // Get the user, songs, and get the titles of the songs to update:
-    
   await userSongsCollection.updateMany(
     {},
     { $set: { "songs.$[elem].favorited": true}},

@@ -84,7 +84,7 @@
     <h1 class='titles'>Hello, {username}!</h1>
     <h3>This are your favourited songs!</h3>
     <h3> You can add your song titles to the Gallery by selecting some songs and pressing the "Show the World" button!</h3>
-    <h3>Give it a try!</h3>
+    <h3>Beware! This action cannot be undone. Give it a try!</h3>
 
     <div class='songs-table'>
         {#if songs.length > 0}
