@@ -20,7 +20,9 @@
     })
     .then(response => response.json())
     .then(result => {
-        songs = result[0].songs;
+        if (result.length > 0){
+            songs = result[0].songs;
+        }
     })
 
     function handleChecked(event, song){
@@ -85,13 +87,21 @@
         navigate("/profileInformation", { replace: true });
     }
 
+    function goToAdminPanel(){
+        navigate("/adminPanel", { replace: true });
+    }
+
 </script>
 
 <div class='neon-sign profile song-table'>
     <br>
     <br>
-    <button style="margin-right: 10px;" on:click={goToProfileInformation}>Edit Profile Information</button>
-    <button>Edit Account Information</button>
+    {#if $user.username == "admin"}
+        <button on:click={goToAdminPanel}>Admin Panel</button>
+    {:else}
+        <button style="margin-right: 10px;" on:click={goToProfileInformation}>Edit Profile Information</button>
+        <button>Edit Account Information</button>
+    {/if}
     <br>
     <br>
 

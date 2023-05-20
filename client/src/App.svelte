@@ -7,6 +7,8 @@
   import Profile from "./pages/profile/Profile.svelte";
   import Gallery from "./pages/gallery/Gallery.svelte";
   import ProfileInformation from "./pages/profileInformation/ProfileInformation.svelte";
+  import AdminPanel from "./pages/adminPanel/AdminPanel.svelte";
+  import AdminRoute from "./components/AdminRoute.svelte";
 
   import { Router, Link, Route } from "svelte-navigator";
 
@@ -32,10 +34,13 @@
     <Link to="/gallery">GALLERY</Link>
     <Link to="/sign-up">SIGN UP</Link>
     <Link to="/log-in">LOG IN</Link>
-    {#if $user}
+    {#if $user && $user.username !== "admin"}
     <Link to="/main">SONG CREATOR</Link>
     <Link to="#" on:click={handleLogOut} style="float: right;">LOGOUT</Link>
     <Link to="/profile" style="float: right;">PROFILE</Link>
+    {:else if $user && $user.username === "admin"}
+    <Link to="#" on:click={handleLogOut} style="float: right">LOGOUT</Link>
+    <Link to="/adminPanel" style="float: right;">ADMIN PANEL</Link>
     {/if}
   </nav>
   
@@ -61,4 +66,7 @@
   <PrivateRoute path="/profileInformation" let:location>
     <ProfileInformation />
   </PrivateRoute>
+  <AdminRoute path="/adminPanel">
+    <AdminPanel />
+  </AdminRoute>
 </Router>
