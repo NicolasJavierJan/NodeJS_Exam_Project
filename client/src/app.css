@@ -181,7 +181,7 @@ label {
   margin-top: 5px;
 }
 
-input {
+input, select {
   width: 300px;
   border-radius: 8px;
   height: 30px;
