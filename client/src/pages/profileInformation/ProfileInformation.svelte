@@ -1,7 +1,11 @@
 <script>
+    import toastr from 'toastr';
+    import 'toastr/build/toastr.min.css';
+
     let name = "";
     let country = "";
     let age = 20;
+    let disableFields = false;
 
     fetch("http://localhost:8080/profile/user", {
         method: "GET",
@@ -31,7 +35,27 @@
             })
         }).then(response => {
             if (response.status === 200){
-                //TODO: toastr.
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                toastr["success"]("Profile has been saved!", "Success~!")
+
+                disableFields = true;
             }
         })
     }
@@ -42,9 +66,9 @@
     <h1 class='titles'>EDIT PROFILE INFORMATION</h1>
     <form on:submit|preventDefault={handleProfileSave}>
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" bind:value={name}>
+        <input type="text" id="name" name="name" bind:value={name} disabled={disableFields}>
         <label for="country">Country</label>
-        <select name="country" bind:value={country}>
+        <select name="country" bind:value={country} disabled={disableFields}>
             <option value="AF">Afghanistan</option>
             <option value="AX">Åland Islands</option>
             <option value="AL">Albania</option>
@@ -296,10 +320,10 @@
             <option value="ZW">Zimbabwe</option>
         </select>
         <label for="age">Age</label>
-        <input type="number" id="age" name="age" bind:value={age}>
+        <input type="number" id="age" name="age" bind:value={age} disabled={disableFields}>
         <br>
         <br>
-        <button type="submit">Update Profile Information</button>
+        <button type="submit" disabled={disableFields}>Update Profile Information</button>
     </form>
 </div>
 

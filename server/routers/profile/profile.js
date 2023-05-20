@@ -13,6 +13,7 @@ router.get("/profile/user", isAuthenticated, async (req, res) => {
 
 router.post("/profile/user", isAuthenticated, async (req, res) => {
     await db.run("UPDATE profiles SET name = ?, country = ?, age = ? WHERE id = ?", [req.body.name, req.body.country, req.body.age, req.session.userId]);
+    res.status(200).send();
 })
 
 export default router;
