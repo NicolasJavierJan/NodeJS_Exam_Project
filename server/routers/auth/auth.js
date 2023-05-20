@@ -15,7 +15,9 @@ router.post("/auth/sign-up", async (req, res) => {
     // If not: 
     } else {
         const password = await bcrypt.hash(req.body.password, 8);
-        await db.all("INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, 2)", [(req.body.username).toLowerCase(), (req.body.email).toLowerCase(), password]);
+        await db.all("INSERT INTO users (username, password, user_type) VALUES (?, ?, 2)", [(req.body.username).toLowerCase(), password]);
+        const user = await db.get("SELECT * FROM users WHERE username = ?", [(req.body.username).toLowerCase()]);
+        await db.all("INSERT INTO profiles (id, name, country, age, songs_created, songs_favorited) VALUES (?, ?, ?, 0, 0, 0)", [user.id, "", ""]);
         res.status(200).send("User was created!");
     }    
 })

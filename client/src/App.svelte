@@ -6,6 +6,7 @@
   import SignUp from "./pages/sign-up/Sign-Up.svelte";
   import Profile from "./pages/profile/Profile.svelte";
   import Gallery from "./pages/gallery/Gallery.svelte";
+  import ProfileInformation from "./pages/profileInformation/ProfileInformation.svelte";
 
   import { Router, Link, Route } from "svelte-navigator";
 
@@ -57,4 +58,7 @@
   <Route path="/gallery">
     <Gallery />
   </Route>
+  <PrivateRoute path="/profileInformation" let:location>
+    <ProfileInformation />
+  </PrivateRoute>
 </Router>

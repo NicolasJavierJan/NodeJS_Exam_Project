@@ -9,6 +9,7 @@ import session from "express-session";
 import rateLimit from "express-rate-limit";
 import http from 'http';
 import mongoDB from "./databases/mongoConnection.js";
+import db from "./databases/sqliteConnection.js";
 
 import { spawn } from "child_process";
 import { isAuthenticated } from "./helperFunctions/isAuthenticated.js";
@@ -69,9 +70,11 @@ app.get('/run', isAuthenticated, (req, res) => {
             errorMessage += data.toString();
         });
       
-        pythonProcess.on('close', (code) => {
+        pythonProcess.on('close', async (code) => {
           if (code === 0) {
             // Send the generated text as the response
+            // Add the songs created to the user profile table:
+            await db.run("UPDATE profiles SET songs_created = songs_created + ? WHERE id = ?", [songs.length, req.session.userId]);
             res.status(200).send(songs);
           } else {
             // Send the error message as the response

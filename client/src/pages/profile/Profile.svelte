@@ -2,11 +2,14 @@
     import toastr from 'toastr';
     import 'toastr/build/toastr.min.css';
     import { user } from "../../stores/users.js";
+    import { useNavigate, useLocation } from "svelte-navigator";
 
     let username = $user.username;
     let songs = [];
     let selectedSongs = [];
     let saveSongsButton = true;
+    const navigate = useNavigate();
+	const location = useLocation();
 
     fetch("http://localhost:8080/songs", {
         method: 'GET',
@@ -78,9 +81,20 @@
         })
     }
 
+    function goToProfileInformation(){
+        navigate("/profileInformation", { replace: true });
+    }
+
 </script>
 
 <div class='neon-sign profile song-table'>
+    <br>
+    <br>
+    <button style="margin-right: 10px;" on:click={goToProfileInformation}>Edit Profile Information</button>
+    <button>Edit Account Information</button>
+    <br>
+    <br>
+
     <h1 class='titles'>Hello, {username}!</h1>
     <h3>This are your favourited songs!</h3>
     <h3> You can add your song titles to the Gallery by selecting some songs and pressing the "Show the World" button!</h3>

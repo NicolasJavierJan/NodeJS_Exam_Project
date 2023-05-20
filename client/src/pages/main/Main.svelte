@@ -124,7 +124,7 @@
 </script>
 
 <div class="neon-sign main song-table">
-    <h1 class='titles'>Heavy Metal Song Title Creator</h1>
+    <h1 class='titles'>HEAVY METAL SONG TITLE CREATOR</h1>
     <h3>With a press of the button, you can get some Machine Learning generated song titles.</h3>
     <h3>The model was trained with over 22 thousand heavy metal song titles. </h3>
     <h3>Give it a try!</h3>

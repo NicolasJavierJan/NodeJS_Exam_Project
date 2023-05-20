@@ -22,12 +22,23 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
-        email TEXT NOT NULL,
         password TEXT NOT NULL,
         user_type INTEGER,
         FOREIGN KEY (user_type) REFERENCES roles (id)
     );
 `);
+
+db.exec(`
+    CREATE TABLE IF NOT EXISTS profiles (
+        id INTEGER,
+        name TEXT,
+        country TEXT,
+        age INTEGER,
+        songs_created INTEGER,
+        songs_favorited INTEGER,
+        FOREIGN KEY (id) REFERENCES users (id)
+    )
+`)
 
 // Seeding
 const adminPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 8);
@@ -35,5 +46,5 @@ const adminPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 8);
 if (isDeleteMode) {
     db.run(`INSERT INTO roles (description) VALUES ('admin');`);
     db.run(`INSERT INTO roles (description) VALUES ('regular_user');`);
-    db.run(`INSERT INTO users (username, email, password, user_type) VALUES ('admin', 'admin@admin.com', ?, 1);`, [adminPassword]);
+    db.run(`INSERT INTO users (username, password, user_type) VALUES ('admin', ?, 1);`, [adminPassword]);
 }

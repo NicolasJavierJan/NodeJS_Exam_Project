@@ -1,5 +1,6 @@
 import { Router } from "express";
 import mongoDB from "../../databases/mongoConnection.js";
+import db from "../../databases/sqliteConnection.js";
 
 import { isAuthenticated } from "../../helperFunctions/isAuthenticated.js";
 
@@ -7,13 +8,13 @@ const router = Router();
 
 //TODO: Check this. It works, but it feels somewhat wobbly.
 router.post("/songs", isAuthenticated, async (req, res) => {
+  
   const username = req.session.username.toString();
   // Checks if there is a collection with that name:
   const dbExists = (await mongoDB.listCollections({ name: username}).toArray()).length;
 
   // If there is already a collection, it updates the songs.
   if (dbExists){
-    //TODO: FIX THIS RIGHT NOW!
     const collection = mongoDB.collection(username);
     await collection.updateOne({}, { 
       $push: { 
@@ -32,6 +33,8 @@ router.post("/songs", isAuthenticated, async (req, res) => {
     }))
     await collection.insertOne({ songs: formatted } ); 
   }
+  
+  await db.run("UPDATE profiles SET songs_favorited = songs_favorited + ? WHERE id = ?", [req.body.songs.length, req.session.userId]);
 })
 
 router.get("/songs", isAuthenticated, async (req, res) => {
