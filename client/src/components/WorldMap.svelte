@@ -82,12 +82,21 @@
     return color;
   }
 </script>
-
-<div id="map"></div>
+<div id="container">
+  <div id="map"></div>
+</div>
 
 <style>
     #map {
-        height: 400px;
+        height: 100%;
         width: 80%;
+        margin: auto;
+    }
+
+    #container {
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
