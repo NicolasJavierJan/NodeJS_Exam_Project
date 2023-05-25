@@ -91,6 +91,10 @@
         navigate("/adminPanel", { replace: true });
     }
 
+    function goToAccountInformation(){
+        navigate("/accountInformation", { replace: true });
+    }
+
 </script>
 
 <div class='neon-sign profile song-table'>
@@ -100,7 +104,7 @@
         <button on:click={goToAdminPanel}>Admin Panel</button>
     {:else}
         <button style="margin-right: 10px;" on:click={goToProfileInformation}>Edit Profile Information</button>
-        <button>Edit Account Information</button>
+        <button on:click={goToAccountInformation}>Edit Account Information</button>
     {/if}
     <br>
     <br>

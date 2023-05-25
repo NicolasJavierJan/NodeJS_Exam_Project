@@ -29,6 +29,7 @@ import authRouter from "./routers/auth/auth.js";
 import userSongs from "./routers/songs/songs.js";
 import profile from "./routers/profile/profile.js";
 import adminRouter from "./routers/admin/admin.js";
+import account from "./routers/account/account.js";
 
 // Middleware functions:
 app.use(express.json());
@@ -56,6 +57,7 @@ app.use(authRouter);
 app.use(userSongs);
 app.use(profile);
 app.use(adminRouter);
+app.use(account);
 
 app.get('/run', isAuthenticated, (req, res) => {
         const pythonProcess = spawn('python', ['../machine_learning/setup.py']);

@@ -1,4 +1,6 @@
 <script>
+    import { useNavigate, useLocation, navigate } from "svelte-navigator";
+
     let username;
     let password;
     let message = "";
@@ -17,7 +19,7 @@
         })
         .then(response => {
             if (response.status === 200){
-                window.location.href = "/log-in";
+                navigate("/log-in", {replace: true});
             } else if (response.status === 400){
                 message = "User already exists";
             }

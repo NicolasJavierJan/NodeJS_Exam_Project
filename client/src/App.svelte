@@ -9,10 +9,12 @@
   import ProfileInformation from "./pages/profileInformation/ProfileInformation.svelte";
   import AdminPanel from "./pages/adminPanel/AdminPanel.svelte";
   import AdminRoute from "./components/AdminRoute.svelte";
+  import AccountInformation from "./pages/accountInformation/AccountInformation.svelte";
 
   import { Router, Link, Route } from "svelte-navigator";
 
   import { user } from "./stores/users.js";
+  
   
 
   function handleLogOut(){
@@ -65,6 +67,9 @@
   </Route>
   <PrivateRoute path="/profileInformation" let:location>
     <ProfileInformation />
+  </PrivateRoute>
+  <PrivateRoute path="/accountInformation" let:location>
+    <AccountInformation />
   </PrivateRoute>
   <AdminRoute path="/adminPanel">
     <AdminPanel />

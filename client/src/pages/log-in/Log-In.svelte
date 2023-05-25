@@ -24,8 +24,7 @@
         .then(response => {
             if (response.status === 200) {
                 user.set({ username });
-                const from = ($location.state && $location.state.from) || "/";
-                navigate(from, { replace: true });
+                navigate("/", { replace: true });
             } else if (response.status === 401){
                 message = "Wrong Username or Password";
             }
