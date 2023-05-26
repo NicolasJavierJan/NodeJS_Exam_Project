@@ -1,13 +1,12 @@
 <script>
+    import { useNavigate, useLocation } from "svelte-navigator";
+	import { user } from "../../stores/users.js";
+
     let username;
     let password;
     let message = "";
 
-    import { useNavigate, useLocation } from "svelte-navigator";
-	import { user } from "../../stores/users.js";
-
     const navigate = useNavigate();
-	const location = useLocation();
 
     function handleLogin(){
         fetch('http://localhost:8080/auth/log-in', {
@@ -27,6 +26,8 @@
                 navigate("/", { replace: true });
             } else if (response.status === 401){
                 message = "Wrong Username or Password";
+            } else if (response.status === 429){
+                message = "Too many requests. Please try again later";
             }
         })
     }

@@ -5,7 +5,6 @@ import { isAuthenticated } from "../../helperFunctions/isAuthenticated.js";
 
 const router = Router();
 
-// TODO: make it so a User can change username, password.
 router.get("/profile/user", isAuthenticated, async (req, res) => {
     const userInfo = await db.all("SELECT * FROM profiles WHERE id = ?", [req.session.userId]);
     res.status(200).send(userInfo);

@@ -6,7 +6,6 @@ import { isAuthenticated } from "../../helperFunctions/isAuthenticated.js";
 
 const router = Router();
 
-//TODO: Check this. It works, but it feels somewhat wobbly.
 router.post("/songs", isAuthenticated, async (req, res) => {
   
   const username = req.session.username.toString();
@@ -60,7 +59,6 @@ router.post("/songs/favourites", isAuthenticated, async (req, res) => {
     const collection = mongoDB.collection("favourites");
     const songsToAdd = req.body.songs.map(song => (song.title))
     await collection.updateOne({}, { $push: { songs: { $each: songsToAdd, $position: 0 } } });
-    console.log(await collection.find().toArray());
     res.status(200).send();
   } else {    
     mongoDB.createCollection("favourites");

@@ -4,19 +4,25 @@
 
     import { user } from "../../stores/users.js";
 
+    // Fields:
     let username = $user.username;
     let password = "";
     let reEnteredPassword = "";
+    // Field disablers:
     let disableFields = false;  
     let reEnterDisabled = true;
-    let passwordMatchError = "";
     let disableButton = true;
+    // Error message:
+    let passwordMatchError = "";
 
     $: {
+        // Disable field for password re enter if no password is entered.
         reEnterDisabled = !password;
 
+        // Check if password and password re entered match. Show an error message if they do not.
         passwordMatchError = password !== reEnteredPassword ? 'Passwords must match' : "";
 
+        // Disable the button if passwords don't match and the password length is more than 0.
         disableButton = passwordMatchError === "" && password.length > 0 ? false : true;
     }
 
@@ -60,6 +66,7 @@
                 handleLogOut();
             }
 
+            // Logs out user after changing credentials to force a log in with new credentials.
             function handleLogOut(){
                 $user = null;
                 fetch('http://localhost:8080/auth/log-out', {

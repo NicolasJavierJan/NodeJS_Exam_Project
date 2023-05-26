@@ -1,5 +1,3 @@
-//TODO: The baseline for authentication is done. I need to connect it to the actual page so Auth works and shows stuff based on that.
-
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import db from "../../databases/sqliteConnection.js";

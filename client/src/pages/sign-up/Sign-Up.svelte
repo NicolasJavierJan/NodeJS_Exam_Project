@@ -1,5 +1,5 @@
 <script>
-    import { useNavigate, useLocation, navigate } from "svelte-navigator";
+    import { navigate } from "svelte-navigator";
 
     let username;
     let password;

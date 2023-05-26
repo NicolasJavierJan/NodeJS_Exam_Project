@@ -1,5 +1,3 @@
-// TODO: Basic implementation done, need some work on routes and details.
-
 // In package.json, the "type" is "module". This means I have to import using the word "import" as oposed to "require";
 import dotenv from "dotenv/config";
 import express from "express";
@@ -46,9 +44,8 @@ app.use(session({
 }));
 app.use("/auth", rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  // TODO:
-  // Make this number smaller before turning the project in!
-	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  // Number of attempts: 
+	max: 6, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 }));

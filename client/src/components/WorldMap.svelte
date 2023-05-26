@@ -68,9 +68,11 @@
 
   function getColor(userCount) {
     // Define the color scale based on the user count
-    // For now, maxUserCount equals one because I don't have that many Users.
+    // For now, maxUserCount equals one because I don't have that many Users. This can change in the future, as the
+    // webpage gets more users, to show the number of users with different degrees of red.
+    // Might do that for the presentation.
     const maxUserCount = 1;
-    const minColorValue = 0;
+    //const minColorValue = 0;
     const maxColorValue = 255;
 
     // Calculate the color value based on the user count
@@ -81,7 +83,9 @@
 
     return color;
   }
+
 </script>
+
 <div id="container">
   <div id="map"></div>
 </div>

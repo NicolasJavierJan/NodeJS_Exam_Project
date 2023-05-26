@@ -1,4 +1,5 @@
 <script>
+    // Using sockets for the gallery: 
     import io from "socket.io-client";
 
     const socket = io("localhost:8080");

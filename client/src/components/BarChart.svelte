@@ -1,6 +1,7 @@
 <script> 
     import { Bar } from "svelte-chartjs";
     import { Chart, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from "chart.js";
+    
     Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
     let songsCreated = 0;
@@ -17,6 +18,7 @@
     })
     .then(response => response.json())
     .then(result => {
+        // Get how many songs were created in total: 
         songsCreated = result[0].number;
     })
 
@@ -29,6 +31,7 @@
     })
     .then(response => response.json())
     .then(result => {
+        // Get how many songs were favorited: 
         songsFavorited = result[0].number;
     })
 

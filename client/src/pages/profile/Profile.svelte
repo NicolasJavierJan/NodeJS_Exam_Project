@@ -9,7 +9,6 @@
     let selectedSongs = [];
     let saveSongsButton = true;
     const navigate = useNavigate();
-	const location = useLocation();
 
     fetch("http://localhost:8080/songs", {
         method: 'GET',
@@ -83,16 +82,17 @@
         })
     }
 
+    // Replace is false because I want to be able to click the back button and show the previous page.
     function goToProfileInformation(){
-        navigate("/profileInformation", { replace: true });
+        navigate("/profileInformation", { replace: false });
     }
 
     function goToAdminPanel(){
-        navigate("/adminPanel", { replace: true });
+        navigate("/adminPanel", { replace: false });
     }
 
     function goToAccountInformation(){
-        navigate("/accountInformation", { replace: true });
+        navigate("/accountInformation", { replace: false });
     }
 
 </script>

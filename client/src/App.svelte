@@ -29,8 +29,7 @@
   }
 </script>
 
-<Router>
-  
+<Router>  
   <nav>
     <Link to="/">HOME</Link>
     <Link to="/gallery">GALLERY</Link>
@@ -44,8 +43,7 @@
     <Link to="#" on:click={handleLogOut} style="float: right">LOGOUT</Link>
     <Link to="/adminPanel" style="float: right;">ADMIN PANEL</Link>
     {/if}
-  </nav>
-  
+  </nav>  
 
   <Route path="/">
     <Home />
