@@ -5,18 +5,21 @@ For this project, I decided to create a webpage for my machine learning Mandator
 I trained an RNN model on more than 22 thousand Heavy Metal song titles to get new titles.
 
 In this page, a User can:
-*Sign Up*
-*Log in*
-*Log out*
-*Create new Song Titles*
-*Favorite the Song Titles*
-*Add the Favorited Song titles (all of them, or some of them) to a Gallery*
-*Edit their profile information*
-*Edit their account information*
+
+- Sign Up
+- Log in
+- Log out
+- Create new Song Titles
+- Favorite the Song Titles
+- Add the Favorited Song titles (all of them, or some of them) to a Gallery
+- Edit their profile information
+- Edit their account information
+
 An Admin can:
-*Log in*
-*Log out*
-*Access an Admin Panel where they can see the geographical location of the users, and a graph that shows the Model Acceptance (Number of songs favorited / number of songs created)*
+
+- Log in
+- Log out 
+- Access an Admin Panel where they can see the geographical location of the users, and a graph that shows the Model Acceptance (Number of songs favorited / number of songs created)
 
 Routes for the Users with an account (profile, account edit, profile edit, and song creator) are protected. Users without an account can still see the Gallery and the Home Page. Users flagged as admin can see the Admin Panel but not create songs themselves.
 
