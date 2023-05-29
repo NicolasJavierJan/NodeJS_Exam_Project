@@ -24,6 +24,9 @@ An Admin can:
 Routes for the Users with an account (profile, account edit, profile edit, and song creator) are protected. Users without an account can still see the Gallery and the Home Page. Users flagged as admin can see the Admin Panel but not create songs themselves.
 
 Links that I used for certain features:
+
 https://css-tricks.com/how-to-create-neon-text-with-css/  => For the overall style of the page
+
 https://stackoverflow.com/questions/53388003/select-country-dropdown-in-html-page => For the Countries Dropdown
+
 https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json => For the Countries Map in the Admin Panel.
