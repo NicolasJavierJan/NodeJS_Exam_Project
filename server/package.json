@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset-database": "node ./databases/createUsersDatabase.js delete_mode",
-    "create-database": "node ./databases/createUsersDatabase.js"
+    "create-database": "node ./databases/createUsersDatabase.js",
+    "run-server": "node ./app.js"
   },
   "author": "Nicolas Javier Jan",
   "license": "ISC",
